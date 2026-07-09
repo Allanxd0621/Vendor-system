@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Document</title>
 </head>
 <body>
-    
+<!-- ge butang ranato sa form ang foods na e order with fixed values -->
     <form method="POST">
         <h1>Burger</h1>
         <input type="hidden" value="burger" name="food_Name">
