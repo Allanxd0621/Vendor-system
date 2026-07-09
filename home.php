@@ -1,22 +1,27 @@
 <?php 
-session_start();
-
-$cann = mysqli_connect('localhost' , 'root' , '' , 'practice_db');
-$id = $_SESSION['id'];
+$cann = mysqli_connect('localhost' , 'root' ,'' , 'vendor_user_db');
 
 if(!$cann){
     die("Connection Failed");
 }
 
-$sql = "SELECT * FROM users WHERE id = $id";
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-$result = mysqli_query($cann , $sql);
+    $foodName = $_POST['food_Name'];
+    $foodPrice = $_POST['food_Price'];
 
-$data = mysqli_fetch_assoc($result);
+    $foodStatus = 'pending'; // just string so that it wont be visible in inspection 
+    
+    $sql = "INSERT INTO orders (food_Name , food_Price , food_Status) VALUES ('$foodName' , '$foodPrice' , '$foodStatus')";
 
-$username = $data['username'];
+    mysqli_query($cann , $sql);
+
+}
+
+
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,10 +31,14 @@ $username = $data['username'];
     <title>Document</title>
 </head>
 <body>
-    <h1>
+    
+    <form method="POST">
+        <h1>Burger</h1>
+        <input type="hidden" value="burger" name="food_Name">
+        <input type="hidden" value="20" name="food_Price">
+        <button type="submit">Order</button>
 
-    <?php echo 'hi' . $username; ?>
+    </form>
 
-    </h1>
 </body>
 </html>
